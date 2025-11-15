@@ -10,21 +10,6 @@ import (
 	"github.com/nidhi/ai-memory-mcp/go-server/memory"
 )
 
-type PingInput struct {
-	Message string `json:"message" jsonschema:"message to echo"`
-}
-
-type PingOutput struct {
-	Response string `json:"response" jsonschema:"reply to echo"`
-}
-
-func Ping(ctx context.Context, req *mcp.CallToolRequest, input PingInput) (*mcp.CallToolResult, PingOutput, error) {
-	if input.Message == "" {
-		input.Message = "pong"
-	}
-	return nil, PingOutput{Response: "u said" + input.Message}, nil
-}
-
 func main() {
 	store := memory.NewInMemStore()
 	server := mcp.NewServer(&mcp.Implementation{Name: "memory-server", Version: "0.0.1"}, nil)
